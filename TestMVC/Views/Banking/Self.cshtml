@@ -1,0 +1,146 @@
+﻿@{
+    ViewData["Title"] = "Transaction";
+}
+
+<div class="d-flex flex-column-fluid" id="transaction">
+    <!--begin::Container-->
+    <div class="container">
+        <div class="card card-custom">
+            <div class="card-header">
+                <div class="card-title">
+                    <span class="card-icon">
+                        <i class="flaticon-add-label-button text-primary"></i>
+                    </span>
+                    <h3 class="card-label">Transaction </h3>
+                </div>
+            </div>
+            <div class="card-body row">
+                <div class="form-group col-6">
+                    <span class="bold h1 text-primary text-uppercase">From</span>
+                    <select class="form-control" v-model="transaction.acc_from">
+                        <option v-for="product in products" :value="product.acc_number">{{ product.acc_number }} - {{ product.product_type }} (Available: {{ product.available_balance }})</option>
+                    </select>
+                </div>
+                <div class="form-group col-6">
+                    <span class="bold h1 text-primary text-uppercase">To</span>
+                    <select class="form-control" v-model="transaction.acc_to">
+                        <option v-for="product in products" :value="product.acc_number">{{ product.acc_number }} - {{ product.product_type }}</option>
+                    </select>
+                </div>
+                <div class="form-group col-12" v-if="account_correct">
+                    <span class="bold h2 text-success text-uppercase">Available</span>
+                    <i class="bg-light-success rounded-circle" style="margin: 0 5px;">
+                        <svg width="30px" height="30px" viewBox="0 0 24 24" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+                            <!-- Generator: Sketch 50.2 (55047) - http://www.bohemiancoding.com/sketch -->
+                            <title>Stockholm-icons / Shopping / Dollar</title>
+                            <desc>Created with Sketch.</desc>
+                            <defs></defs>
+                            <g id="Stockholm-icons-/-Shopping-/-Dollar" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+                                <rect id="bound" x="0" y="0" width="24" height="24"></rect>
+                                <rect id="Rectangle" fill="#000000" opacity="0.3" x="11.5" y="2" width="2" height="4" rx="1"></rect>
+                                <rect id="Rectangle-Copy-3" fill="#000000" opacity="0.3" x="11.5" y="16" width="2" height="5" rx="1"></rect>
+                                <path fill="#1BC5BD" d="M15.493,8.044 C15.2143319,7.68933156 14.8501689,7.40750104 14.4005,7.1985 C13.9508311,6.98949895 13.5170021,6.885 13.099,6.885 C12.8836656,6.885 12.6651678,6.90399981 12.4435,6.942 C12.2218322,6.98000019 12.0223342,7.05283279 11.845,7.1605 C11.6676658,7.2681672 11.5188339,7.40749914 11.3985,7.5785 C11.2781661,7.74950085 11.218,7.96799867 11.218,8.234 C11.218,8.46200114 11.2654995,8.65199924 11.3605,8.804 C11.4555005,8.95600076 11.5948324,9.08899943 11.7785,9.203 C11.9621676,9.31700057 12.1806654,9.42149952 12.434,9.5165 C12.6873346,9.61150047 12.9723317,9.70966616 13.289,9.811 C13.7450023,9.96300076 14.2199975,10.1308324 14.714,10.3145 C15.2080025,10.4981676 15.6576646,10.7419985 16.063,11.046 C16.4683354,11.3500015 16.8039987,11.7268311 17.07,12.1765 C17.3360013,12.6261689 17.469,13.1866633 17.469,13.858 C17.469,14.6306705 17.3265014,15.2988305 17.0415,15.8625 C16.7564986,16.4261695 16.3733357,16.8916648 15.892,17.259 C15.4106643,17.6263352 14.8596698,17.8986658 14.239,18.076 C13.6183302,18.2533342 12.97867,18.342 12.32,18.342 C11.3573285,18.342 10.4263378,18.1741683 9.527,17.8385 C8.62766217,17.5028317 7.88033631,17.0246698 7.285,16.404 L9.413,14.238 C9.74233498,14.6433354 10.176164,14.9821653 10.7145,15.2545 C11.252836,15.5268347 11.7879973,15.663 12.32,15.663 C12.5606679,15.663 12.7949989,15.6376669 13.023,15.587 C13.2510011,15.5363331 13.4504991,15.4540006 13.6215,15.34 C13.7925009,15.2259994 13.9286662,15.0740009 14.03,14.884 C14.1313338,14.693999 14.182,14.4660013 14.182,14.2 C14.182,13.9466654 14.1186673,13.7313342 13.992,13.554 C13.8653327,13.3766658 13.6848345,13.2151674 13.4505,13.0695 C13.2161655,12.9238326 12.9248351,12.7908339 12.5765,12.6705 C12.2281649,12.5501661 11.8323355,12.420334 11.389,12.281 C10.9583312,12.141666 10.5371687,11.9770009 10.1255,11.787 C9.71383127,11.596999 9.34650161,11.3531682 9.0235,11.0555 C8.70049838,10.7578318 8.44083431,10.3968355 8.2445,9.9725 C8.04816568,9.54816454 7.95,9.03200304 7.95,8.424 C7.95,7.67666293 8.10199848,7.03700266 8.406,6.505 C8.71000152,5.97299734 9.10899753,5.53600171 9.603,5.194 C10.0970025,4.85199829 10.6543302,4.60183412 11.275,4.4435 C11.8956698,4.28516587 12.5226635,4.206 13.156,4.206 C13.9160038,4.206 14.6918294,4.34533194 15.4835,4.624 C16.2751706,4.90266806 16.9686637,5.31433061 17.564,5.859 L15.493,8.044 Z" id="Combined-Shape"></path>
+                            </g>
+                        </svg>
+                    </i>
+                    <span class="bg-light-info h4 p-2 rounded text-info" style="margin-left: 10px;">{{ product_from.available_balance }}</span>
+                </div>
+                <div class="form-group col-12" v-if="account_correct">
+                    <span class="bold h1 text-primary text-uppercase">Amount</span>
+                    <input class="form-control" v-model="transaction.amount" />
+                </div>
+                <div class="form-group col-12" v-if="account_correct">
+                    <span class="bold h1 text-primary text-uppercase">Description</span>
+                    <input class="form-control" v-model="transaction.description" />
+                </div>
+            </div>
+            <div class="card-footer align-items-center">
+                <div>
+                    <button v-on:click="openConfirmModal" v-bind:class="{disabled : !account_correct}" type="button" class="btn btn-primary btn-md text-uppercase font-weight-bold chat-send py-2 px-6">Send</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="modal modal-sticky" id="confirmModal" role="dialog" data-backdrop="false" style="background-color: #0000007d;">
+        <div class="modal-dialog modal-lg" role="document">
+            <div class="modal-content">
+                <!--begin::Card-->
+                <div class="card card-custom">
+                    <!--begin::Header-->
+                    <div class="card-header align-items-center px-4 py-3">
+                        <div class="text-left flex-grow-1">
+                        </div>
+                        <div class="text-center flex-grow-1">
+                            <div class="text-dark-75 font-weight-bold font-size-h5">Confirm Transaction</div>
+                        </div>
+                        <div class="text-right flex-grow-1">
+                            <button type="button" class="btn btn-clean btn-sm btn-icon btn-icon-md" data-dismiss="modal">
+                                <i class="ki ki-close icon-1x"></i>
+                            </button>
+                        </div>
+                    </div>
+                    <!--end::Header-->
+                    <!--begin::Body-->
+                    <div v-if="account_correct" class="card-body row align-items-center justify-content-center">
+                        <div class="form-group col-6 row">
+                            <span class="bold h1 col-12 text-primary text-uppercase">From</span>
+                            <span class="col-12" style="font-size: 20px; font-weight: 500;">{{ product_from.acc_number }}</span>
+                            <span class="col-12" style="font-size: 20px; font-weight: 500;">{{ product_from.product_type }}</span>
+                        </div>
+                        <div class="form-group col-6 row" style="border-left: 2px #3699FF solid">
+                            <span class="bold h1 col-12 text-primary text-uppercase">To</span>
+                            <span class="col-12" style="font-size: 20px; font-weight: 500;">{{ product_to.acc_number }}</span>
+                            <span class="col-12" style="font-size: 20px; font-weight: 500;">{{ product_to.product_type }}</span>
+                        </div>
+                        <div class="form-group col-12">
+                            <span class="bold h2 text-success text-uppercase">Amount</span>
+                            <i class="bg-light-danger rounded-circle p-1" style="margin: 0 5px;">
+                                <svg width="30px" height="30px" viewBox="0 0 24 24" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+                                    <!-- Generator: Sketch 50.2 (55047) - http://www.bohemiancoding.com/sketch -->
+                                    <title>Stockholm-icons / Shopping / Dollar</title>
+                                    <desc>Created with Sketch.</desc>
+                                    <defs></defs>
+                                    <g id="Stockholm-icons-/-Shopping-/-Dollar" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+                                        <rect id="bound" x="0" y="0" width="24" height="24"></rect>
+                                        <rect id="Rectangle" fill="#000000" opacity="0.3" x="11.5" y="2" width="2" height="4" rx="1"></rect>
+                                        <rect id="Rectangle-Copy-3" fill="#000000" opacity="0.3" x="11.5" y="16" width="2" height="5" rx="1"></rect>
+                                        <path fill="#F64E60" d="M15.493,8.044 C15.2143319,7.68933156 14.8501689,7.40750104 14.4005,7.1985 C13.9508311,6.98949895 13.5170021,6.885 13.099,6.885 C12.8836656,6.885 12.6651678,6.90399981 12.4435,6.942 C12.2218322,6.98000019 12.0223342,7.05283279 11.845,7.1605 C11.6676658,7.2681672 11.5188339,7.40749914 11.3985,7.5785 C11.2781661,7.74950085 11.218,7.96799867 11.218,8.234 C11.218,8.46200114 11.2654995,8.65199924 11.3605,8.804 C11.4555005,8.95600076 11.5948324,9.08899943 11.7785,9.203 C11.9621676,9.31700057 12.1806654,9.42149952 12.434,9.5165 C12.6873346,9.61150047 12.9723317,9.70966616 13.289,9.811 C13.7450023,9.96300076 14.2199975,10.1308324 14.714,10.3145 C15.2080025,10.4981676 15.6576646,10.7419985 16.063,11.046 C16.4683354,11.3500015 16.8039987,11.7268311 17.07,12.1765 C17.3360013,12.6261689 17.469,13.1866633 17.469,13.858 C17.469,14.6306705 17.3265014,15.2988305 17.0415,15.8625 C16.7564986,16.4261695 16.3733357,16.8916648 15.892,17.259 C15.4106643,17.6263352 14.8596698,17.8986658 14.239,18.076 C13.6183302,18.2533342 12.97867,18.342 12.32,18.342 C11.3573285,18.342 10.4263378,18.1741683 9.527,17.8385 C8.62766217,17.5028317 7.88033631,17.0246698 7.285,16.404 L9.413,14.238 C9.74233498,14.6433354 10.176164,14.9821653 10.7145,15.2545 C11.252836,15.5268347 11.7879973,15.663 12.32,15.663 C12.5606679,15.663 12.7949989,15.6376669 13.023,15.587 C13.2510011,15.5363331 13.4504991,15.4540006 13.6215,15.34 C13.7925009,15.2259994 13.9286662,15.0740009 14.03,14.884 C14.1313338,14.693999 14.182,14.4660013 14.182,14.2 C14.182,13.9466654 14.1186673,13.7313342 13.992,13.554 C13.8653327,13.3766658 13.6848345,13.2151674 13.4505,13.0695 C13.2161655,12.9238326 12.9248351,12.7908339 12.5765,12.6705 C12.2281649,12.5501661 11.8323355,12.420334 11.389,12.281 C10.9583312,12.141666 10.5371687,11.9770009 10.1255,11.787 C9.71383127,11.596999 9.34650161,11.3531682 9.0235,11.0555 C8.70049838,10.7578318 8.44083431,10.3968355 8.2445,9.9725 C8.04816568,9.54816454 7.95,9.03200304 7.95,8.424 C7.95,7.67666293 8.10199848,7.03700266 8.406,6.505 C8.71000152,5.97299734 9.10899753,5.53600171 9.603,5.194 C10.0970025,4.85199829 10.6543302,4.60183412 11.275,4.4435 C11.8956698,4.28516587 12.5226635,4.206 13.156,4.206 C13.9160038,4.206 14.6918294,4.34533194 15.4835,4.624 C16.2751706,4.90266806 16.9686637,5.31433061 17.564,5.859 L15.493,8.044 Z" id="Combined-Shape"></path>
+                                    </g>
+                                </svg>
+                            </i>
+                            <span class="h3 p-2 rounded text-danger" style="font-weight: 800">{{ transaction.amount }}</span>
+                        </div>
+                        <div class="form-group col-12 row" v-if="account_correct">
+                            <span class="bold h2 text-success text-uppercase">Description</span>
+                            <div class="bg-light-info col-12">
+                                <span style="font-size: 15px;">{{ transaction.description }}</span>
+                            </div>
+                        </div>
+                    </div>
+                    <!--end::Body-->
+                    <!--begin::Footer-->
+                    <div class="card-footer align-items-center">
+                        <div>
+                            <button v-on:click="confirmTransaction" type="button" class="btn btn-primary btn-md text-uppercase font-weight-bold chat-send py-2 px-6">Confirm</button>
+                        </div>
+                    </div>
+                    <!--end::Footer-->
+                </div>
+                <!--end::Card-->
+            </div>
+        </div>
+    </div>
+</div>
+
+
+@section Scripts {
+
+    <script>
+        var user = @Html.Raw(Json.Serialize(ViewBag.user));
+        var session_time = "@Html.Raw(ViewBag.session_time)";
+        var products = @Html.Raw(Json.Serialize(ViewBag.products));
+    </script>
+
+    <script src="~/js/pages/transaction_self.js"></script>
+
+}

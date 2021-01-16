@@ -1,0 +1,119 @@
+﻿@{
+    ViewData["Title"] = "Recipients";
+}
+
+<div class="d-flex flex-column-fluid" id="recipient">
+    <!--begin::Container-->
+    <div class="container">
+        <div class="card card-custom">
+            <div class="card-header">
+                <div class="card-title">
+                    <span class="card-icon">
+                        <i class="flaticon-users-1 text-primary"></i>
+                    </span>
+                    <h3 class="card-label">Recipients </h3>
+                </div>
+                <div class="card-toolbar">
+                    <!--begin::Button-->
+                    <button v-on:click="openAddModal" class="btn btn-primary font-weight-bolder">
+                        <span class="svg-icon svg-icon-md">
+                            <!--begin::Svg Icon | path:assets/media/svg/icons/Design/Flatten.svg-->
+                            <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="24px" height="24px" viewBox="0 0 24 24" version="1.1">
+                                <g stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+                                    <rect x="0" y="0" width="24" height="24" />
+                                    <circle fill="#000000" cx="9" cy="15" r="6" />
+                                    <path d="M8.8012943,7.00241953 C9.83837775,5.20768121 11.7781543,4 14,4 C17.3137085,4 20,6.6862915 20,10 C20,12.2218457 18.7923188,14.1616223 16.9975805,15.1987057 C16.9991904,15.1326658 17,15.0664274 17,15 C17,10.581722 13.418278,7 9,7 C8.93357256,7 8.86733422,7.00080962 8.8012943,7.00241953 Z" fill="#000000" opacity="0.3" />
+                                </g>
+                            </svg>
+                            <!--end::Svg Icon-->
+                        </span>New Recipient
+                    </button>
+                    <!--end::Button-->
+                </div>
+            </div>
+            <div class="card-body">
+                <!--begin: Datatable-->
+                <table class="table table-bordered table-hover table-checkable" id="kt_datatable" style="margin-top: 13px !important">
+                    <thead>
+                        <tr>
+                            <th>Alias</th>
+                            <th>Full Name</th>
+                            <th>Tax ID</th>
+                            <th>Account</th>
+                            <th>Options</th>
+                        </tr>
+                    </thead>
+                </table>
+                <!--end: Datatable-->
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="modal modal-sticky" id="recipientModal" role="dialog" data-backdrop="false" style="background-color: #0000007d;">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <!--begin::Card-->
+            <div class="card card-custom">
+                <!--begin::Header-->
+                <div class="card-header align-items-center px-4 py-3">
+                    <div class="text-left flex-grow-1">
+                    </div>
+                    <div class="text-center flex-grow-1">
+                        <div class="text-dark-75 font-weight-bold font-size-h5">{{ modalTitle }}</div>
+                    </div>
+                    <div class="text-right flex-grow-1">
+                        <button type="button" class="btn btn-clean btn-sm btn-icon btn-icon-md" data-dismiss="modal">
+                            <i class="ki ki-close icon-1x"></i>
+                        </button>
+                    </div>
+                </div>
+                <!--end::Header-->
+                <!--begin::Body-->
+                <div class="card-body row align-items-center justify-content-center" >
+                    <div class="form-group col-10">
+                        <label>Tax ID</label>
+                        <input class="form-control" v-bind:class="{disabled : modalTitle == 'Edit' }" v-model="recipient.recipient_id" />
+                    </div>
+                    <small class="text-danger" v-show="recipient_nf">Customer not found.</small>
+                    <button v-on:click="searchUser" type="button" style="height: 35px;" class="btn btn-primary btn-md text-uppercase font-weight-bold chat-send"><i class="flaticon-search"></i></button>
+                    <div class="form-group col-12" v-show="recipient.fullname">
+                        <label>Name</label>
+                        <input class="form-control" disabled v-model="recipient.fullname" />
+                    </div>
+                    <div class="form-group col-10" v-show="recipient.fullname">
+                        <label>Account #</label>
+                        <input class="form-control" v-model="recipient.recipient_acc" />
+                    </div>
+                    <small class="text-danger" v-show="account_nf">Account not found.</small>
+                    <button v-on:click="confirmAccount" v-show="recipient.fullname" style="height: 35px;" type="button" class="btn btn-primary btn-md text-uppercase font-weight-bold chat-send py-2 px-6"><i class="flaticon-search"></i></button>
+                    <div class="form-group col-12" v-show="account_correct">
+                        <label>Alias</label>
+                        <input class="form-control" v-model="recipient.alias" />
+                    </div>
+                </div>
+                <!--end::Body-->
+                <!--begin::Footer-->
+                <div class="card-footer align-items-center">
+                    <div>
+                        <button v-if="modalTitle == 'Edit'" v-on:click="editRecipient" type="button" class="btn btn-primary btn-md text-uppercase font-weight-bold chat-send py-2 px-6">Edit</button>
+                        <button v-else v-on:click="addRecipient" v-bind:class="{disabled : !recipient.alias}" type="button" class="btn btn-primary btn-md text-uppercase font-weight-bold chat-send px-30">Add</button>
+                    </div>
+                </div>
+                <!--end::Footer-->
+            </div>
+            <!--end::Card-->
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+
+    <script>
+        var user = @Html.Raw(Json.Serialize(ViewBag.user));
+        var session_time = "@Html.Raw(ViewBag.session_time)";
+    </script>
+
+    <script src="~/js/pages/recipient.js"></script>
+
+}
